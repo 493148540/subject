@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5, user-scalable=no" />
+
+<script src="js/jquery-3.2.1.min.js"></script>
+
+
+
+<script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<title>图片列表</title>
+<style>
+.loginbox table{
+	margin:0px;
+}
+.loginbox table tr td{
+	padding:1px;
+	 vertical-align: middle; 
+	 border-top: 0px solid #ddd; 
+	 
+}
+.loginbox table .col_1{
+	width: 35px; 
+}
+.loginbox table .col_2{
+	width: 30%; 
+    height: 23px; 
+}
+.loginbox table .col_3{
+	width: 80px;
+	border-right: 1px solid #ddd;  
+}
+.loginbox table .col_4{
+	padding-left:5px
+}
+.content-loginbox{
+	margin-top:10px;
+	margin-bottom:10px;}
+</style>
+<script>
+      
+(function (doc, win) {   
+    var docEl = doc.documentElement,   
+    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',   
+    recalc = function () {   
+    var clientWidth = docEl.clientWidth;   
+    if (!clientWidth) return;   
+    docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';   
+};   
+if (!doc.addEventListener) return;   
+win.addEventListener(resizeEvt, recalc, false);   
+doc.addEventListener('DOMContentLoaded', recalc, false);   
+})(document, window);   
+ 
+
+</script>
+</head>
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-2 column">
+		</div>
+		<div class="col-md-8 column content-loginbox">
+			<div style="width:20%;float:left"><img alt="140x140" src="img/logo.png" /></div>
+			<div style="width:60%;float:right" class="loginbox">
+				<table class="table" >
+					<tbody>
+						<tr>
+							<td class="col_1" >
+								<font>帐号</font>
+							</td>
+							<td class="col_2">
+								<input type="text"  id="name" placeholder="请输入名称">
+							</td>
+							<td class="col_3">
+								<input type="checkbox"><font>自动登录</font>
+							</td>
+							<td class="col_4">
+								<a href="javascript">找回密码</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="col_1">
+								密码
+							</td>
+							<td class="col_2">
+								<input type="text"  id="name" placeholder="请输入密码">
+							</td>
+							<td class="col_3"">
+								<button>登录</button>
+							</td>
+							<td class="col_4">
+								<a href="javascript:void(0)">注册</a>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+		<div class="col-md-2 column">
+		</div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

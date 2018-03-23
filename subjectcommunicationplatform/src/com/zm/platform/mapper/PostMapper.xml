@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.platform.dao.PostDao">
+ <insert id="insert" useGeneratedKeys="true" keyProperty="postId"> 
+	 insert into post(postId , postName , postTopicTypeId , postContent , postTime , postUserId , postReplyNum , postLookedNum , postLastreply , postLastreplyTime , postParentId , postSubjectId , postFloorid ) 
+ 	 values(#{postId} , #{postName} , #{postTopicTypeId} , #{postContent} , #{postTime} , #{postUserId} , #{postReplyNum} , #{postLookedNum} , #{postLastreply} , #{postLastreplyTime} , #{postParentId} , #{postSubjectId} , #{postFloorid} )
+</insert>
+
+<delete id="deleteById">
+	delete from post where postId = #{postId}
+</delete>
+ <update id="update" parameterType="Object">  
+	update post  set postId = #{postId} , postName = #{postName} , postTopicTypeId = #{postTopicTypeId} , postContent = #{postContent} , postTime = #{postTime} , postUserId = #{postUserId} , postReplyNum = #{postReplyNum} , postLookedNum = #{postLookedNum} , postLastreply = #{postLastreply} , postLastreplyTime = #{postLastreplyTime} , postParentId = #{postParentId} , postSubjectId = #{postSubjectId} , postFloorid = #{postFloorid}  
+	where postId = #{postId}   
+</update> 
+
+	<update id="updateNotNull" parameterType="Object">
+		update Post  set   <include refid="Update_Column" />
+		where postId = #{postId}
+	</update>
+ <sql id="Update_Column"> 
+	 postId=#{postId} 
+	<if test="postName != null and postName != ''" >
+		 , postName =  #{postName}
+	</if>
+	<if test="postTopicTypeId != null and postTopicTypeId != 0" >
+		 , postTopicTypeId =  #{postTopicTypeId}
+	</if>
+	<if test="postContent != null and postContent != ''" >
+		 , postContent =  #{postContent}
+	</if>
+	<if test="postTime != null and postTime != ''" >
+		 , postTime =  #{postTime}
+	</if>
+	<if test="postUserId != null and postUserId != 0" >
+		 , postUserId =  #{postUserId}
+	</if>
+	<if test="postReplyNum != null and postReplyNum != 0" >
+		 , postReplyNum =  #{postReplyNum}
+	</if>
+	<if test="postLookedNum != null and postLookedNum != 0" >
+		 , postLookedNum =  #{postLookedNum}
+	</if>
+	<if test="postLastreply != null and postLastreply != 0" >
+		 , postLastreply =  #{postLastreply}
+	</if>
+	<if test="postLastreplyTime != null and postLastreplyTime != 0" >
+		 , postLastreplyTime =  #{postLastreplyTime}
+	</if>
+	<if test="postParentId != null and postParentId != 0" >
+		 , postParentId =  #{postParentId}
+	</if>
+	<if test="postSubjectId != null and postSubjectId != 0" >
+		 , postSubjectId =  #{postSubjectId}
+	</if>
+	<if test="postFloorid != null and postFloorid != 0" >
+		 , postFloorid =  #{postFloorid}
+	</if>
+</sql>
+
+<select id="findAll" resultType="com.zm.platform.domain.Post">
+	 select * from post
+</select>
+
+<select id="findById" resultType="com.zm.platform.domain.Post">
+	 select * from post where postId=#{postId}
+</select>
+
+<select id="queryByList" resultType="com.zm.platform.domain.Post"  parameterType="Object">
+	 select SQL_CALC_FOUND_ROWS * from post
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+</select>
+<sql id="sortsql">
+	<trim >
+		<if test="sort != null  and sort!=''  and order!=null and order!=''">
+			order by ${sort}   ${order} 
+		</if>
+		<if test="page != null and rows!=null">
+			limit #{page} ,#{rows}
+		</if>
+	</trim>
+</sql>
+ <sql id="Example_Where_Clause"> 
+	 where 1=1 
+<trim  suffixOverrides="," >
+	<if test="postId != null and postId != 0" >
+		 and postId =  #{postId}
+	</if>
+	<if test="postName != null and postName != ''" >
+		 and postName =  #{postName}
+	</if>
+	<if test="postTopicTypeId != null and postTopicTypeId != 0" >
+		 and postTopicTypeId =  #{postTopicTypeId}
+	</if>
+	<if test="postContent != null and postContent != ''" >
+		 and postContent =  #{postContent}
+	</if>
+	<if test="postTime != null and postTime != ''" >
+		 and postTime =  #{postTime}
+	</if>
+	<if test="postUserId != null and postUserId != 0" >
+		 and postUserId =  #{postUserId}
+	</if>
+	<if test="postReplyNum != null and postReplyNum != 0" >
+		 and postReplyNum =  #{postReplyNum}
+	</if>
+	<if test="postLookedNum != null and postLookedNum != 0" >
+		 and postLookedNum =  #{postLookedNum}
+	</if>
+	<if test="postLastreply != null and postLastreply != 0" >
+		 and postLastreply =  #{postLastreply}
+	</if>
+	<if test="postLastreplyTime != null and postLastreplyTime != 0" >
+		 and postLastreplyTime =  #{postLastreplyTime}
+	</if>
+	<if test="postParentId != null and postParentId != 0" >
+		 and postParentId =  #{postParentId}
+	</if>
+	<if test="postSubjectId != null and postSubjectId != 0" >
+		 and postSubjectId =  #{postSubjectId}
+	</if>
+	<if test="postFloorid != null and postFloorid != 0" >
+		 and postFloorid =  #{postFloorid}
+	</if>
+</trim>
+</sql>
+
+<select id="findObject" resultType="com.zm.platform.domain.Post"  parameterType="Object">
+	 select  * from post
+	<include refid="Example_Where_Clause" />
+order by postId desc limit 0,1
+</select>
+
+<select id="findAllDetailPost" resultType="com.zm.platform.querydomain.QueryPost" parameterType="Object">
+	select SQL_CALC_FOUND_ROWS post.*,u1.userName,u2.userName as postLastreplyName,topicType.*
+	from post
+	left join user u1 on u1.userId = post.postUserId
+	left join topicType on topicType.topicTypeId = post.postTopicTypeId
+	left join user u2 on u2.userId = post.postLastreply 
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+	 
+</select>
+</mapper>

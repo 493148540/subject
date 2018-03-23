@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.platform.dao.TopicTypeDao">
+ <insert id="insert" useGeneratedKeys="true" keyProperty="topicTypeId"> 
+	 insert into topictype(topicTypeId , topicTypeName ) 
+ 	 values(#{topicTypeId} , #{topicTypeName} )
+</insert>
+
+<delete id="deleteById">
+	delete from topictype where topicTypeId = #{topicTypeId}
+</delete>
+ <update id="update" parameterType="Object">  
+	update topictype  set topicTypeId = #{topicTypeId} , topicTypeName = #{topicTypeName}  
+	where topicTypeId = #{topicTypeId}   
+</update> 
+
+	<update id="updateNotNull" parameterType="Object">
+		update TopicType  set   <include refid="Update_Column" />
+		where topicTypeId = #{topicTypeId}
+	</update>
+ <sql id="Update_Column"> 
+	 topicTypeId=#{topicTypeId} 
+	<if test="topicTypeName != null and topicTypeName != ''" >
+		 , topicTypeName =  #{topicTypeName}
+	</if>
+</sql>
+
+<select id="findAll" resultType="com.zm.platform.domain.TopicType">
+	 select * from topictype
+</select>
+
+<select id="findById" resultType="com.zm.platform.domain.TopicType">
+	 select * from topictype where topicTypeId=#{topicTypeId}
+</select>
+
+<select id="queryByList" resultType="com.zm.platform.domain.TopicType"  parameterType="Object">
+	 select SQL_CALC_FOUND_ROWS * from topictype
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+</select>
+<sql id="sortsql">
+	<trim >
+		<if test="sort != null  and sort!=''  and order!=null and order!=''">
+			order by ${sort}   ${order} 
+		</if>
+		<if test="page != null and rows!=null">
+			limit #{page} ,#{rows}
+		</if>
+	</trim>
+</sql>
+ <sql id="Example_Where_Clause"> 
+	 where 1=1 
+<trim  suffixOverrides="," >
+	<if test="topicTypeId != null and topicTypeId != 0" >
+		 and topicTypeId =  #{topicTypeId}
+	</if>
+	<if test="topicTypeName != null and topicTypeName != ''" >
+		 and topicTypeName =  #{topicTypeName}
+	</if>
+</trim>
+</sql>
+
+<select id="findObject" resultType="com.zm.platform.domain.TopicType"  parameterType="Object">
+	 select  * from topictype
+	<include refid="Example_Where_Clause" />
+order by topicTypeId desc limit 0,1
+</select>
+</mapper>
