@@ -157,7 +157,7 @@ border: 1px solid #CDCDCD !important;
 }
 </style>
 </head>
-
+	
 <body onload="IFrameResize()" >
 
 		<div class="col-md-12 column" style="padding:0">
@@ -222,7 +222,7 @@ border: 1px solid #CDCDCD !important;
 								
 					<tbody style="border-bottom: 1px solid #C2D5E3;">
 					<tr>
-					 	<th><em>[<a>${item.topicTypeName}</a>]</em><a>${item.postName}</a></th>
+					 	<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId=${item.topicTypeId }">${item.topicTypeName}</a>]</em><a href="javascript:void(0)" data-id="${item.postId}"onclick="openview(this)">${item.postName}</a></th>
 						<td class="by"><cite><a data-userid="${item.postUserId}">${item.userName}</a></cite><em><span>${item.postTime}</span></em></td>
 						<td class=""><cite><a href="javascript:void(0)">${item.postReplyNum }</a></cite><em>${item.postLookedNum}</em></td>
 						<td class=""><cite><a href="javascript:void(0)"data-userid="${item.postLastreply}">${item.postLastreplyName}</a></cite><em>${item.postLastreplyTime }</em></td>
@@ -257,7 +257,7 @@ border: 1px solid #CDCDCD !important;
 			</div>
 			
 		</div>
-		
+	
 <script>
 var um = UM.getEditor('myEditor');
 
@@ -275,6 +275,21 @@ $(function(){
 		var button = $(this);
 		$.get('postmanage/findbylist',{postTopicTypeId:$('.topictypelist .active').attr('data-topicid'),page:parseInt(button.attr('data-page'))+1},function(rsp){
 			button.attr('data-page',parseInt(button.attr('data-page'))+1);
+			var list = $('#postlisttableid');
+			for(var index in rsp.rows){
+				var i = rsp.rows[index];
+				var tbody = 
+					'<tbody style="border-bottom: 1px solid #C2D5E3;">'+
+					'<tr>'+
+				 	'<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId="'+i.topicTypeId+'>'+i.topicTypeName+'</a>]</em><a>'+i.postName+'</a></th>'+
+					'<td class="by"><cite><a data-userid="'+i.postUserId+'">'+i.userName+'</a></cite><em><span>'+i.postTime+'</span></em></td>'+
+					'<td class=""><cite><a href="javascript:void(0)">'+i.postReplyNum+'</a></cite><em>'+i.postLookedNum+'</em></td>'+
+					'<td class=""><cite><a href="javascript:void(0)"data-userid="'+i.postLastreply+'">'+i.postLastreplyName+'</a></cite><em>'+i.postLastreplyTime+'</em></td>'+
+					'</tr>'+
+					'</tbody>';
+				$(tbody).appendTo(list);
+				parent.document.getElementById("ifrm").height =parseInt(parent.document.getElementById("ifrm").height)+41;
+			}
 			debugger;
 		});
 	})
@@ -321,10 +336,10 @@ var addpostlist = function(obj){
 	var tbody = 
 		'<tbody style="border-bottom: 1px solid #C2D5E3;">'+
 		'<tr>'+
-	 	'<th><em>[<a>'+$('#postcontentbox').find('[name="postTopicTypeId"] [value="'+obj.postTopicTypeId+'"]').text()+'</a>]</em><a>'+obj.postName+'</a></th>'+
-		'<td class="by"><cite><a data-userid="'+obj.postUserId+'">'+"${sessionScope.userName}"+'</a></cite><em><span>'+obj.postTime+'</span></em></td>'+
+	 	'<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId='+obj.postTopicTypeId+'">'+$('#postcontentbox').find('[name="postTopicTypeId"] [value="'+obj.postTopicTypeId+'"]').text()+'</a>]</em><a data-id="${item.postId}"onclick="openview(this)">'+obj.postName+'</a></th>'+
+		'<td class="by"><cite><a data-userid="'+obj.postUserId+'">'+"${sessionScope.user.userName}"+'</a></cite><em><span>'+obj.postTime+'</span></em></td>'+
 		'<td class=""><cite><a href="javascript:void(0)">'+obj.postReplyNum+'</a></cite><em>'+obj.postLookedNum+'</em></td>'+
-		'<td class=""><cite><a href="javascript:void(0)"data-userid="'+obj.postLastreply+'">'+"${sessionScope.userName}"+'</a></cite><em>'+obj.postLastreplyTime+'</em></td>'+
+		'<td class=""><cite><a href="javascript:void(0)"data-userid="'+obj.postLastreply+'">'+"${sessionScope.user.userName}"+'</a></cite><em>'+obj.postLastreplyTime+'</em></td>'+
 		'</tr>'+
 		'</tbody>';
 	$(tbody).appendTo($('#postlisttableid'));
@@ -333,7 +348,12 @@ var addpostlist = function(obj){
 var refreshpostlist = function(){
 	
 }
-
+var openview = function(a){
+	debugger;
+	console.log($(a).attr('data-id'));
+	parent.location.hash="postmanage/thread-"+$(a).attr('data-id')+"-1";
+	
+}
 </script>
 
 

@@ -1,16 +1,19 @@
 package com.zm.platform.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zm.platform.domain.Info;
 import com.zm.platform.domain.Post;
@@ -51,11 +54,34 @@ public class PostHandler extends BaseHandler<Post,QueryPost>{
 	@ResponseBody
 	@RequestMapping(value="findbylist",method=RequestMethod.GET)
 	public Map<String, Object> findByList(@RequestParam(required = false,value="page",defaultValue="1")int page,
-							@RequestParam(required = false,value="page",defaultValue="10")int rows,
+							@RequestParam(required = false,value="rows",defaultValue="10")int rows,
 							QueryPost entity){
 		entity.setPage((entity.getPage()-1)*entity.getRows());
 		return postService.findAllDetailPost(entity);
 		
 		
-	} 
+	}
+	
+	/**
+	 * 获取指定id的帖子
+	 * @param id
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value="thread-{id}-{page}",method=RequestMethod.GET)
+	public ModelAndView findPostList(@PathVariable int id,
+											@PathVariable int page )
+	{
+		System.out.println("-------");
+		QueryPost entity = new QueryPost();
+		entity.setPage((page-1)*entity.getRows());
+		entity.setPostId((long)id);
+		ModelAndView model = new ModelAndView("postdetail");
+		Map<String,Object> map = model.getModel();
+		
+		map.put("postlist",postService.findPostList(entity));
+		
+		return model;
+	}
+	
 }	

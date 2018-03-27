@@ -35,8 +35,12 @@ public class IndexController {
 		Map<String,Object> modelmap= new HashMap<String,Object>();
 		modelmap.put("topic",topicTypeService.findAll());
 		modelmap.put("thispage", post.getPage());
+		post.setPostParentId((long)0);
 		post.setRows(20);
 		post.setPage((post.getPage()-1)*post.getRows());
+		post.setOrder("desc");
+		post.setSort("postLastreplyTime");
+		post.setPostParentId((long)0);
 		modelmap.put("postlist", postService.findAllDetailPost(post));
 		modelmap.put("param", post);
 		

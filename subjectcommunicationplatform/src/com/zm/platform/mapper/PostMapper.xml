@@ -114,7 +114,7 @@
 	<if test="postLastreplyTime != null and postLastreplyTime != 0" >
 		 and postLastreplyTime =  #{postLastreplyTime}
 	</if>
-	<if test="postParentId != null and postParentId != 0" >
+	<if test="postParentId != null" >
 		 and postParentId =  #{postParentId}
 	</if>
 	<if test="postSubjectId != null and postSubjectId != 0" >
@@ -140,6 +140,20 @@ order by postId desc limit 0,1
 	left join user u2 on u2.userId = post.postLastreply 
 	<include refid="Example_Where_Clause" />
 	<include refid="sortsql" />
+	 
+</select>
+
+<select id="findPostList" resultType="com.zm.platform.querydomain.QueryPost" parameterType="Object">
+	select SQL_CALC_FOUND_ROWS post.*,u1.userName,u2.userName as postLastreplyName,topicType.*,
+	 u1.userId, u1.userEmail, u1.userHead
+	from post
+	left join user u1 on u1.userId = post.postUserId
+	left join topicType on topicType.topicTypeId = post.postTopicTypeId
+	left join user u2 on u2.userId = post.postLastreply 
+	
+	where  postid  = #{postId}  or postparentid=#{postId} order by postfloorid
+	
+	
 	 
 </select>
 </mapper>

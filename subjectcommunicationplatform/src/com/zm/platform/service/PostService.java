@@ -24,5 +24,13 @@ public class PostService extends BaseService<Post>{
 		map.put("total",  postdao.getCount());
 		return map;
 	}
+
+	public Map<String, Object> findPostList(QueryPost entity) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("rows",  postdao.findPostList(entity));
+		map.put("total",  postdao.getCount());
+		return map;
+	}
 	
 }

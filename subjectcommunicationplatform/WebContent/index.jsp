@@ -184,7 +184,7 @@ function SetCwinHeight(iframe) {
 	<div class="row clearfix">
 		<div class="col-md-1 column">
 		</div>
-		<div class="col-md-10 column">
+		<div class="col-md-10 column" style="padding:0px">
 			<div  class="menulist">
 				<ul class="clearfix">
 					<li class="active"><span url="#forum">论坛</span></li>
@@ -201,7 +201,7 @@ function SetCwinHeight(iframe) {
 					<div style="border:1px solid #CCC;"> 这是导航</div>
 				</div>-->
 				<div class="column content-right" style="padding-right: 0;">
-					<iframe id="ifrm" src="forum" scrolling=no   style="border:none;width:100%;">这是正文</iframe>
+					<iframe id="ifrm" src="forum" scrolling=no   style="border:none;width:100%;" onload="SetCwinHeight(this)">这是正文</iframe>
 				</div>
 				
 			</div>
@@ -223,6 +223,10 @@ var hashchange = function(){
 		if(location.hash=="")
 			return;
 		url =location.hash.substring(1,location.hash.length);
+		if("#"+url==$('.menulist').find('li.active span').attr('url'))
+			return;
+		$('.menulist').find('li.active').removeClass('active');
+		$('.menulist').find('[url="#'+url+'"]').parent().addClass('active');
 		document.getElementById("ifrm").src=url;
 	}
 var exitlogin = function(){
@@ -244,8 +248,7 @@ var exitlogin = function(){
 $(function(){
 	//导航菜单点击事件
 	$('.menulist li').click(function(){
-		$('.menulist ul .active').removeClass('active');
-		$(this).addClass('active');
+		
 		var hash = $(this).children().attr('url');
 		location.hash=hash;
 	})
