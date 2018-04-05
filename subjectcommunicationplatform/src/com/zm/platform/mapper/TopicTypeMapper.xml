@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zm.platform.dao.TopicTypeDao">
  <insert id="insert" useGeneratedKeys="true" keyProperty="topicTypeId"> 
-	 insert into topictype(topicTypeId , topicTypeName ) 
- 	 values(#{topicTypeId} , #{topicTypeName} )
+	 insert into topictype(topicTypeId , topicTypeName , topicTypeSubjectId ) 
+ 	 values(#{topicTypeId} , #{topicTypeName} , #{topicTypeSubjectId} )
 </insert>
 
 <delete id="deleteById">
 	delete from topictype where topicTypeId = #{topicTypeId}
 </delete>
  <update id="update" parameterType="Object">  
-	update topictype  set topicTypeId = #{topicTypeId} , topicTypeName = #{topicTypeName}  
+	update topictype  set topicTypeId = #{topicTypeId} , topicTypeName = #{topicTypeName} , topicTypeSubjectId = #{topicTypeSubjectId}  
 	where topicTypeId = #{topicTypeId}   
 </update> 
 
@@ -22,6 +22,9 @@
 	 topicTypeId=#{topicTypeId} 
 	<if test="topicTypeName != null and topicTypeName != ''" >
 		 , topicTypeName =  #{topicTypeName}
+	</if>
+	<if test="topicTypeSubjectId != null and topicTypeSubjectId != 0" >
+		 , topicTypeSubjectId =  #{topicTypeSubjectId}
 	</if>
 </sql>
 
@@ -56,6 +59,9 @@
 	</if>
 	<if test="topicTypeName != null and topicTypeName != ''" >
 		 and topicTypeName =  #{topicTypeName}
+	</if>
+	<if test="topicTypeSubjectId != null and topicTypeSubjectId != 0" >
+		 and topicTypeSubjectId =  #{topicTypeSubjectId}
 	</if>
 </trim>
 </sql>

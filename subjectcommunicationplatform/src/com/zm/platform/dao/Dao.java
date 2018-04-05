@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.zm.platform.domain.Post;
+
 
 public interface Dao<T>{
 	public Long insert(T t);	//添加
@@ -25,4 +27,5 @@ public interface Dao<T>{
 	public int updateNotNull(T t);
 	@Update("${sql}")
 	public void doSql(@Param("sql") String sql);
+	public Long insertById(Post t);
 }

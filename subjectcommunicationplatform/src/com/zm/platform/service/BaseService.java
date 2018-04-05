@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zm.platform.dao.Dao;
+import com.zm.platform.domain.Post;
+import com.zm.platform.querydomain.QueryPage;
 
 
 
@@ -37,9 +39,13 @@ public class BaseService<T> {
 	}
 	
 	@Transactional
-	public Map<String,Object> findByList(Object query){ //查询
+	public <E extends QueryPage> Map<String,Object> findByList(E	 query){ //查询
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("rows",  dao.queryByList(query));
+		
+		int total = dao.getCount();
+		map.put("total",  total);
+		map.put("maxpage",  (int)Math.ceil((double)total/query.getRows()));
 		map.put("total",  dao.getCount());
 		return map;
 		
@@ -53,5 +59,9 @@ public class BaseService<T> {
 	public T findObject(T t){
 		return dao.findObject(t);
 		
+	}
+	public Long insertById(Post t) {
+		// TODO Auto-generated method stub
+		return dao.insertById(t);
 	}
 }

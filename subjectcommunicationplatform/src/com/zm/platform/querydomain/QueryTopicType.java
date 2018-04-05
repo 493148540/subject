@@ -4,6 +4,12 @@ public class QueryTopicType extends QueryPage{
 	
 	private Long topicTypeId;
 	private String topicTypeName;
+	private Long topicTypeSubjectId;
+	
+	
+	private Long subjectId;
+	private String subjectName;
+	
 	public Long getTopicTypeId() {
 		return topicTypeId;
 	}
@@ -16,7 +22,26 @@ public class QueryTopicType extends QueryPage{
 	public void setTopicTypeName(String topicTypeName) {
 		this.topicTypeName = topicTypeName;
 	}
+	public Long getTopicTypeSubjectId() {
+		return topicTypeSubjectId;
+	}
+	public void setTopicTypeSubjectId(Long topicTypeSubjectId) {
+		this.topicTypeSubjectId = topicTypeSubjectId;
+	}
+	public Long getSubjectId() {
+		return subjectId;
+	}
+	public void setSubjectId(Long subjectId) {
+		this.subjectId = subjectId;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
 		
+	
 		
 	
 }

@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zm.platform.dao.UserDao">
-	<insert id="insert" useGeneratedKeys="true" keyProperty="userId">
-		insert into user(userId , userName , userPassword , userRoleId , userEmail )
-		values(#{userId} , #{userName} , #{userPassword} , #{userRoleId} ,
-		#{userEmail} )
-	</insert>
+ <insert id="insert" useGeneratedKeys="true" keyProperty="userId"> 
+	 insert into user(userId , userName , userPassword , userRoleId , userEmail , userHead ) 
+ 	 values(#{userId} , #{userName} , #{userPassword} , #{userRoleId} , #{userEmail} , #{userHead} )
+</insert>
 
-	<delete id="deleteById">
-		delete from user where userId = #{userId}
-	</delete>
-	<update id="update" parameterType="Object">
-		update user set userId = #{userId} , userName = #{userName} , userPassword =
-		#{userPassword} , userRoleId = #{userRoleId} , userEmail =
-		#{userEmail}
-		where userId = #{userId}
-	</update>
+<delete id="deleteById">
+	delete from user where userId = #{userId}
+</delete>
+ <update id="update" parameterType="Object">  
+	update user  set userId = #{userId} , userName = #{userName} , userPassword = #{userPassword} , userRoleId = #{userRoleId} , userEmail = #{userEmail} , userHead = #{userHead}  
+	where userId = #{userId}   
+</update> 
 
 	<update id="updateNotNull" parameterType="Object">
-		update User set
-		<include refid="Update_Column" />
+		update User  set   <include refid="Update_Column" />
 		where userId = #{userId}
 	</update>
-	<sql id="Update_Column">
-		userId=#{userId}
-		<if test="userName != null and userName != ''">
-			, userName = #{userName}
-		</if>
-		<if test="userPassword != null and userPassword != ''">
-			, userPassword = #{userPassword}
-		</if>
-		<if test="userRoleId != null and userRoleId != 0">
-			, userRoleId = #{userRoleId}
-		</if>
-		<if test="userEmail != null and userEmail != ''">
-			, userEmail = #{userEmail}
-		</if>
-	</sql>
+ <sql id="Update_Column"> 
+	 userId=#{userId} 
+	<if test="userName != null and userName != ''" >
+		 , userName =  #{userName}
+	</if>
+	<if test="userPassword != null and userPassword != ''" >
+		 , userPassword =  #{userPassword}
+	</if>
+	<if test="userRoleId != null and userRoleId != 0" >
+		 , userRoleId =  #{userRoleId}
+	</if>
+	<if test="userEmail != null and userEmail != ''" >
+		 , userEmail =  #{userEmail}
+	</if>
+	<if test="userHead != null and userHead != ''" >
+		 , userHead =  #{userHead}
+	</if>
+</sql>
 
-	<select id="findAll" resultType="com.zm.platform.domain.User">
-		select * from user
-	</select>
+<select id="findAll" resultType="com.zm.platform.domain.User">
+	 select * from user
+</select>
 
-	<select id="findById" resultType="com.zm.platform.domain.User">
-		select * from user where userId=#{userId}
-	</select>
+<select id="findById" resultType="com.zm.platform.domain.User">
+	 select * from user where userId=#{userId}
+</select>
 
-	<select id="queryByList" resultType="com.zm.platform.domain.User"
-		parameterType="Object">
-		select SQL_CALC_FOUND_ROWS * from user
-		<include refid="Example_Where_Clause" />
-		<include refid="sortsql" />
-	</select>
-	<sql id="sortsql">
-		<trim>
-			<if test="sort != null  and sort!=''  and order!=null and order!=''">
-				order by ${sort} ${order}
-			</if>
-			<if test="page != null and rows!=null">
-				limit #{page} ,#{rows}
-			</if>
-		</trim>
-	</sql>
-	<sql id="Example_Where_Clause">
-		where 1=1
-		<trim suffixOverrides=",">
-			<if test="userId != null and userId != 0">
-				and userId = #{userId}
-			</if>
-			<if test="userName != null and userName != ''">
-				and userName = #{userName}
-			</if>
-			<if test="userPassword != null and userPassword != ''">
-				and userPassword = #{userPassword}
-			</if>
-			<if test="userRoleId != null and userRoleId != 0">
-				and userRoleId = #{userRoleId}
-			</if>
-			<if test="userEmail != null and userEmail != ''">
-				and userEmail = #{userEmail}
-			</if>
-		</trim>
-	</sql>
+<select id="queryByList" resultType="com.zm.platform.domain.User"  parameterType="Object">
+	 select SQL_CALC_FOUND_ROWS * from user
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+</select>
+<sql id="sortsql">
+	<trim >
+		<if test="sort != null  and sort!=''  and order!=null and order!=''">
+			order by ${sort}   ${order} 
+		</if>
+		<if test="page != null and rows!=null">
+			limit #{page} ,#{rows}
+		</if>
+	</trim>
+</sql>
+ <sql id="Example_Where_Clause"> 
+	 where 1=1 
+<trim  suffixOverrides="," >
+	<if test="userId != null and userId != 0" >
+		 and userId =  #{userId}
+	</if>
+	<if test="userName != null and userName != ''" >
+		 and userName =  #{userName}
+	</if>
+	<if test="userPassword != null and userPassword != ''" >
+		 and userPassword =  #{userPassword}
+	</if>
+	<if test="userRoleId != null and userRoleId != 0" >
+		 and userRoleId =  #{userRoleId}
+	</if>
+	<if test="userEmail != null and userEmail != ''" >
+		 and userEmail =  #{userEmail}
+	</if>
+	<if test="userHead != null and userHead != ''" >
+		 and userHead =  #{userHead}
+	</if>
+</trim>
+</sql>
 
-	<select id="findObject" resultType="com.zm.platform.domain.User"
-		parameterType="Object">
-		select * from user
-		<include refid="Example_Where_Clause" />
-		order by userId desc limit 0,1
-	</select>
+<select id="findObject" resultType="com.zm.platform.domain.User"  parameterType="Object">
+	 select  * from user
+	<include refid="Example_Where_Clause" />
+order by userId desc limit 0,1
+</select>
 </mapper>

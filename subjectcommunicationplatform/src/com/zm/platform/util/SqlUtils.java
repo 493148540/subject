@@ -12,7 +12,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zm.platform.dao.Dao;
+import com.zm.platform.domain.Dictionaries;
 import com.zm.platform.domain.Post;
+import com.zm.platform.domain.Res;
+import com.zm.platform.domain.Subject;
 import com.zm.platform.domain.TopicType;
 import com.zm.platform.domain.User;
 
@@ -28,8 +31,9 @@ public class SqlUtils {
 	@Test
 	public void testgetSql11() throws IOException{
 		
-		getallsql(new Post());
-		getCreatetable(new Post());
+		getallsql(new Res());
+		//getCreatetable(new Res());
+		
 	}
 	public void testupdate(String sql) throws IOException{
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
@@ -38,7 +42,7 @@ public class SqlUtils {
 		
 		 SqlSession sqlsession = sqlsessionfactory.openSession();
 		 
-	 Dao stumapper = (Dao) sqlsession.getMapper(Dao.class);
+		 Dao stumapper = (Dao) sqlsession.getMapper(Dao.class);
 	 
 		try{
 			stumapper.doSql(sql);
@@ -75,7 +79,7 @@ public class SqlUtils {
 			str.append("\n");
 		}
 		str.append("PRIMARY KEY ("+fields[0].getName().toLowerCase()+") )"
-				+ " ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;");
+				+ " ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;");
 		
 		testupdate("DROP TABLE IF EXISTS "+tablename+";");
 		testupdate(str.toString());

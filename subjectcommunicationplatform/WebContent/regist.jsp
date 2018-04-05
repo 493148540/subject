@@ -38,6 +38,7 @@
 </style>
 </head>
 <body style="    border: 1px solid #ccc;">
+
 <div class="title">
 	<h1>立即注册</h1>
 </div>

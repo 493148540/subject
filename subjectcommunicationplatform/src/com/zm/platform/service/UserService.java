@@ -49,7 +49,7 @@ public class UserService extends BaseService<User>{
 		user.setUserPassword(MD5.MD5_32bit(password));
 		user.setUserEmail("");
 		user.setUserRoleId(1);
-		user.setUserHead("http://localhost:8080/subjectcommunicationplatform/img/defaulthead.jpg");
+		user.setUserHead("upload/image/noavatar_middle.gif");
 		try{
 			userDao.insert(user);
 			return new Info(user,"注册成功",200);

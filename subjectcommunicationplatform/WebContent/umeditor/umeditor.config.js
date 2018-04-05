@@ -143,10 +143,10 @@
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         ,toolbar:[
-            'source emotion image video | bold | forecolor backcolor | removeformat |',
+            'source emotion image video attachment | bold attachment | forecolor backcolor | removeformat |',
             ' selectall cleardoc ' ,
             '| justifyleft justifycenter justifyright justifyjustify |',
-            'link unlink',
+            'link',
             '| horizontal preview fullscreen ', 'drafts', 'formula'
         ]
 

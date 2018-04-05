@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +57,10 @@ public class PostHandler extends BaseHandler<Post,QueryPost>{
 	public Map<String, Object> findByList(@RequestParam(required = false,value="page",defaultValue="1")int page,
 							@RequestParam(required = false,value="rows",defaultValue="10")int rows,
 							QueryPost entity){
+		entity.setPostParentId((long)0);
+		entity.setRows(10);
+		entity.setOrder("desc");
+		entity.setSort("postLastreplyTime");
 		entity.setPage((entity.getPage()-1)*entity.getRows());
 		return postService.findAllDetailPost(entity);
 		
@@ -70,18 +75,45 @@ public class PostHandler extends BaseHandler<Post,QueryPost>{
 	 */
 	@RequestMapping(value="thread-{id}-{page}",method=RequestMethod.GET)
 	public ModelAndView findPostList(@PathVariable int id,
-											@PathVariable int page )
+											@PathVariable int page ,HttpServletRequest request)
 	{
-		System.out.println("-------");
-		QueryPost entity = new QueryPost();
-		entity.setPage((page-1)*entity.getRows());
-		entity.setPostId((long)id);
 		ModelAndView model = new ModelAndView("postdetail");
 		Map<String,Object> map = model.getModel();
 		
+		
+		System.out.println("-------");
+		QueryPost entity = new QueryPost();
+		map.put("thispage", page);
+		entity.setPage((page-1)*entity.getRows());
+		entity.setPostId((long)id);
 		map.put("postlist",postService.findPostList(entity));
 		
 		return model;
+	}
+	
+	/**
+	 * 回复
+	 * @param t
+	 * @param request
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	@ResponseBody
+	@RequestMapping(value="insertById",method=RequestMethod.POST)
+	public Info insertByPostId(Post t,
+			HttpServletRequest request) throws NoSuchAlgorithmException{
+			User user = (User)request.getSession().getAttribute("user");
+			t.setPostTime(getTime());
+			t.setPostUserId(user.getUserId());
+			System.out.println("--------------");
+		try{
+			
+			return new Info(postService.reply(t),"编辑成功",200);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Info(t,"编辑失败,系统抛出了异常:"+e,1);
+		}
+		
 	}
 	
 }	

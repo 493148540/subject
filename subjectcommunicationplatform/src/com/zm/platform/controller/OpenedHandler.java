@@ -2,7 +2,9 @@ package com.zm.platform.controller;
 
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,7 @@ public class OpenedHandler {
 			User user = userService.login(username, password);
 			if(user!=null){
 				request.getSession().setAttribute("user",user);
+				
 				return new Info(user,"登录成功",200);
 			}
 			return new Info(null,"登录失败,用户名或密码错误",0);

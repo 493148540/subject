@@ -20,7 +20,7 @@ import com.zm.platform.service.BaseService;
 public class BaseHandler<T,E extends QueryPage> {
 	@Autowired
 	protected BaseService<T> service;
-	
+
 	
 	@ResponseBody
 	@RequestMapping(value="edit",method=RequestMethod.POST)
@@ -38,8 +38,8 @@ public class BaseHandler<T,E extends QueryPage> {
 	@ResponseBody
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Info add(T t,
-			HttpServletRequest request) throws NoSuchAlgorithmException{
-		
+			HttpServletRequest request) throws Exception{
+			System.out.println("add");
 			try{
 				return new Info(service.insert(t),"编辑成功",200);
 			}catch(Exception e){

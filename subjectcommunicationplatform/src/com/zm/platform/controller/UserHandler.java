@@ -24,7 +24,7 @@ import com.zm.platform.util.MD5;
 
 
 
-@Controller()
+@Controller
 @RequestMapping(value = "/usermanage")
 public class UserHandler extends BaseHandler<User,QueryUser>{
 	
@@ -50,6 +50,8 @@ public class UserHandler extends BaseHandler<User,QueryUser>{
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Info add(User User,
 			HttpServletRequest request) throws NoSuchAlgorithmException{
+		User.setUserHead("upload/image/noavatar_middle.gif");
+		User.setUserRoleId(1);
 		if(User.getUserPassword().length()<32)
 			User.setUserPassword(MD5.MD5_32bit1(User.getUserPassword()));
 		if(service.insert(User).getUserId()>0)

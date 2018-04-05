@@ -108,6 +108,8 @@ doc.addEventListener('DOMContentLoaded', recalc, false);
  
 
 function SetCwinHeight(iframe) {
+	debugger;
+	
 	if (iframe) {
 		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
 		if (iframeWin.document.body) {
@@ -185,23 +187,10 @@ function SetCwinHeight(iframe) {
 		<div class="col-md-1 column">
 		</div>
 		<div class="col-md-10 column" style="padding:0px">
-			<div  class="menulist">
-				<ul class="clearfix">
-					<li class="active"><span url="#forum">论坛</span></li>
-					<li><span url="#article.jsp">文章</span></li>
-					<li><span url="#file.jsp">资源</span></li>
-					<li><span url="#video.html">视频</span></li>
-					<li><span >测试</span></li>
-				</ul>
-			</div>
-			
+			<%@ include file="menu.txt"%>
 			<div class="content clearfix">
-			
-				<!--  <div class="col-md-2 column content-left" style="padding-left: 0;padding-right: 0;">
-					<div style="border:1px solid #CCC;"> 这是导航</div>
-				</div>-->
 				<div class="column content-right" style="padding-right: 0;">
-					<iframe id="ifrm" src="forum" scrolling=no   style="border:none;width:100%;" onload="SetCwinHeight(this)">这是正文</iframe>
+					<iframe id="ifrm"  scrolling=no   style="border:none;width:100%;" onload="SetCwinHeight(this)">这是正文</iframe>
 				</div>
 				
 			</div>
@@ -220,11 +209,14 @@ function SetCwinHeight(iframe) {
 <script>
 //url哈希改变事件
 var hashchange = function(){
-		if(location.hash=="")
+		if(location.hash==""){
+			document.getElementById("ifrm").src="forum";
 			return;
+		}
+		
 		url =location.hash.substring(1,location.hash.length);
-		if("#"+url==$('.menulist').find('li.active span').attr('url'))
-			return;
+		//if("#"+url==$('.menulist').find('li.active span').attr('url') && "#"+url!="")
+		//	return;
 		$('.menulist').find('li.active').removeClass('active');
 		$('.menulist').find('[url="#'+url+'"]').parent().addClass('active');
 		document.getElementById("ifrm").src=url;
@@ -282,6 +274,8 @@ $(function(){
 		});
 	})
 })
+
+
 </script>
 
 </html>

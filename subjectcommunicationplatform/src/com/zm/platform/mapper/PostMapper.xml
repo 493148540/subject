@@ -44,7 +44,7 @@
 	<if test="postLastreply != null and postLastreply != 0" >
 		 , postLastreply =  #{postLastreply}
 	</if>
-	<if test="postLastreplyTime != null and postLastreplyTime != 0" >
+	<if test="postLastreplyTime != null and postLastreplyTime != ''" >
 		 , postLastreplyTime =  #{postLastreplyTime}
 	</if>
 	<if test="postParentId != null and postParentId != 0" >
@@ -123,6 +123,9 @@
 	<if test="postFloorid != null and postFloorid != 0" >
 		 and postFloorid =  #{postFloorid}
 	</if>
+	<if test="topicTypeSubjectId != null and topicTypeSubjectId != 0" >
+		 and topicTypeSubjectId =  #{topicTypeSubjectId}
+	</if>
 </trim>
 </sql>
 
@@ -140,7 +143,7 @@ order by postId desc limit 0,1
 	left join user u2 on u2.userId = post.postLastreply 
 	<include refid="Example_Where_Clause" />
 	<include refid="sortsql" />
-	 
+	
 </select>
 
 <select id="findPostList" resultType="com.zm.platform.querydomain.QueryPost" parameterType="Object">
@@ -151,9 +154,17 @@ order by postId desc limit 0,1
 	left join topicType on topicType.topicTypeId = post.postTopicTypeId
 	left join user u2 on u2.userId = post.postLastreply 
 	
-	where  postid  = #{postId}  or postparentid=#{postId} order by postfloorid
-	
-	
+	where  (postid  = #{postId}  or postparentid=#{postId} )
+	<if test="postUserId != null and postUserId != 0" >
+		 and postUserId =  #{postUserId}
+	</if>
+	order by postfloorid
+	<include refid="sortsql" />
 	 
 </select>
+<!-- 回复  -->
+<insert id="insertById" useGeneratedKeys="true" keyProperty="postId"> 
+	 insert into post(    postContent , postTime , postUserId     , postParentId  , postFloorid ) 
+ 	 values(  #{postContent} , #{postTime} , #{postUserId}  , #{postParentId} , (select a.floor from (select max(postfloorid)+1 floor from post where postid=#{postParentId}  or postparentid=#{postParentId} ) a ))
+</insert>
 </mapper>

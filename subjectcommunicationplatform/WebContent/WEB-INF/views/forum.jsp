@@ -155,10 +155,13 @@ border: 1px solid #CDCDCD !important;
 .editbox{
 	padding:20px;
 }
+body{
+	padding-bottom:100px;
+}
 </style>
 </head>
 	
-<body onload="IFrameResize()" >
+<body style="padding-bottom:10000px">
 
 		<div class="col-md-12 column" style="padding:0">
 		<div  style="background-color:#e9f4f5;padding:5px">
@@ -281,7 +284,7 @@ $(function(){
 				var tbody = 
 					'<tbody style="border-bottom: 1px solid #C2D5E3;">'+
 					'<tr>'+
-				 	'<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId="'+i.topicTypeId+'>'+i.topicTypeName+'</a>]</em><a>'+i.postName+'</a></th>'+
+				 	'<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId="'+i.topicTypeId+'>'+i.topicTypeName+'</a>]</em><a data-id="'+i.postId+'"onclick="openview(this)">'+i.postName+'</a></th>'+
 					'<td class="by"><cite><a data-userid="'+i.postUserId+'">'+i.userName+'</a></cite><em><span>'+i.postTime+'</span></em></td>'+
 					'<td class=""><cite><a href="javascript:void(0)">'+i.postReplyNum+'</a></cite><em>'+i.postLookedNum+'</em></td>'+
 					'<td class=""><cite><a href="javascript:void(0)"data-userid="'+i.postLastreply+'">'+i.postLastreplyName+'</a></cite><em>'+i.postLastreplyTime+'</em></td>'+
@@ -336,7 +339,7 @@ var addpostlist = function(obj){
 	var tbody = 
 		'<tbody style="border-bottom: 1px solid #C2D5E3;">'+
 		'<tr>'+
-	 	'<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId='+obj.postTopicTypeId+'">'+$('#postcontentbox').find('[name="postTopicTypeId"] [value="'+obj.postTopicTypeId+'"]').text()+'</a>]</em><a data-id="${item.postId}"onclick="openview(this)">'+obj.postName+'</a></th>'+
+	 	'<th><em>[<a href="/subjectcommunicationplatform/forum?postTopicTypeId='+obj.postTopicTypeId+'">'+$('#postcontentbox').find('[name="postTopicTypeId"] [value="'+obj.postTopicTypeId+'"]').text()+'</a>]</em><a data-id="'+obj.postId+'"onclick="openview(this)">'+obj.postName+'</a></th>'+
 		'<td class="by"><cite><a data-userid="'+obj.postUserId+'">'+"${sessionScope.user.userName}"+'</a></cite><em><span>'+obj.postTime+'</span></em></td>'+
 		'<td class=""><cite><a href="javascript:void(0)">'+obj.postReplyNum+'</a></cite><em>'+obj.postLookedNum+'</em></td>'+
 		'<td class=""><cite><a href="javascript:void(0)"data-userid="'+obj.postLastreply+'">'+"${sessionScope.user.userName}"+'</a></cite><em>'+obj.postLastreplyTime+'</em></td>'+

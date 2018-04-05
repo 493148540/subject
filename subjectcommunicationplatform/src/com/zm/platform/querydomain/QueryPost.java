@@ -27,6 +27,14 @@ public class QueryPost extends QueryPage{
 	
 	private Long topicTypeId;
 	private String topicTypeName;
+	private Long topicTypeSubjectId;
+	
+	public Long getTopicTypeSubjectId() {
+		return topicTypeSubjectId;
+	}
+	public void setTopicTypeSubjectId(Long topicTypeSubjectId) {
+		this.topicTypeSubjectId = topicTypeSubjectId;
+	}
 	public Long getPostId() {
 		return postId;
 	}

@@ -41,6 +41,19 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	
+		<!-- 多个拦截器，顺序执行 -->
+		
+			<!-- /** 表示所有的url，包括子url路径 -->
+			
+			<!--  
+			<mvc:interceptors><mvc:interceptor>
+			  <mvc:mapping path="/*" />
+			<bean class="com.zm.platform.filter.LoginFilter"></bean>
+		</mvc:interceptor></mvc:interceptors>-->
+		<!-- 配置登陆拦截器 -->
+
+		<!-- ..... -->
+	
 	<!-- 配置 MultipartResolver -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
