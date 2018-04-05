@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.platform.dao.DictionariesDao">
+ <insert id="insert" useGeneratedKeys="true" keyProperty="dictionariesId"> 
+	 insert into dictionaries(dictionariesId , dictionariesName , dictionariesCode , dictionariesTypeName , dictionariesTypeCode , dictionariesParentId ) 
+ 	 values(#{dictionariesId} , #{dictionariesName} , #{dictionariesCode} , #{dictionariesTypeName} , #{dictionariesTypeCode} , #{dictionariesParentId} )
+</insert>
+
+<delete id="deleteById">
+	delete from dictionaries where dictionariesId = #{dictionariesId}
+</delete>
+ <update id="update" parameterType="Object">  
+	update dictionaries  set dictionariesId = #{dictionariesId} , dictionariesName = #{dictionariesName} , dictionariesCode = #{dictionariesCode} , dictionariesTypeName = #{dictionariesTypeName} , dictionariesTypeCode = #{dictionariesTypeCode} , dictionariesParentId = #{dictionariesParentId}  
+	where dictionariesId = #{dictionariesId}   
+</update> 
+
+	<update id="updateNotNull" parameterType="Object">
+		update Dictionaries  set   <include refid="Update_Column" />
+		where dictionariesId = #{dictionariesId}
+	</update>
+ <sql id="Update_Column"> 
+	 dictionariesId=#{dictionariesId} 
+	<if test="dictionariesName != null and dictionariesName != ''" >
+		 , dictionariesName =  #{dictionariesName}
+	</if>
+	<if test="dictionariesCode != null and dictionariesCode != ''" >
+		 , dictionariesCode =  #{dictionariesCode}
+	</if>
+	<if test="dictionariesTypeName != null and dictionariesTypeName != ''" >
+		 , dictionariesTypeName =  #{dictionariesTypeName}
+	</if>
+	<if test="dictionariesTypeCode != null and dictionariesTypeCode != ''" >
+		 , dictionariesTypeCode =  #{dictionariesTypeCode}
+	</if>
+	<if test="dictionariesParentId != null and dictionariesParentId != ''" >
+		 , dictionariesParentId =  #{dictionariesParentId}
+	</if>
+</sql>
+
+<select id="findAll" resultType="com.zm.platform.domain.Dictionaries">
+	 select * from dictionaries
+</select>
+
+<select id="findById" resultType="com.zm.platform.domain.Dictionaries">
+	 select * from dictionaries where dictionariesId=#{dictionariesId}
+</select>
+
+<select id="queryByList" resultType="com.zm.platform.domain.Dictionaries"  parameterType="Object">
+	 select SQL_CALC_FOUND_ROWS * from dictionaries
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+</select>
+<sql id="sortsql">
+	<trim >
+		<if test="sort != null  and sort!=''  and order!=null and order!=''">
+			order by ${sort}   ${order} 
+		</if>
+		<if test="page != null and rows!=null">
+			limit #{page} ,#{rows}
+		</if>
+	</trim>
+</sql>
+ <sql id="Example_Where_Clause"> 
+	 where 1=1 
+<trim  suffixOverrides="," >
+	<if test="dictionariesId != null and dictionariesId != 0" >
+		 and dictionariesId =  #{dictionariesId}
+	</if>
+	<if test="dictionariesName != null and dictionariesName != ''" >
+		 and dictionariesName =  #{dictionariesName}
+	</if>
+	<if test="dictionariesCode != null and dictionariesCode != ''" >
+		 and dictionariesCode =  #{dictionariesCode}
+	</if>
+	<if test="dictionariesTypeName != null and dictionariesTypeName != ''" >
+		 and dictionariesTypeName =  #{dictionariesTypeName}
+	</if>
+	<if test="dictionariesTypeCode != null and dictionariesTypeCode != ''" >
+		 and dictionariesTypeCode =  #{dictionariesTypeCode}
+	</if>
+	<if test="dictionariesParentId != null and dictionariesParentId != ''" >
+		 and dictionariesParentId =  #{dictionariesParentId}
+	</if>
+</trim>
+</sql>
+
+<select id="findObject" resultType="com.zm.platform.domain.Dictionaries"  parameterType="Object">
+	 select  * from dictionaries
+	<include refid="Example_Where_Clause" />
+order by dictionariesId desc limit 0,1
+</select>
+</mapper>

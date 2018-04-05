@@ -1,0 +1,10 @@
+
+<div  class="menulist">
+				<ul class="clearfix">
+					<li class="active"><span url="#forum">论坛</span></li>
+					<li><span url="#article.jsp">文章</span></li>
+					<li><span url="#file.jsp">资源</span></li>
+					<li><span url="#video.html">视频</span></li>
+					<li><span >测试</span></li>
+				</ul>
+</div>

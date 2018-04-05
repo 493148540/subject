@@ -1,0 +1,59 @@
+<div class="row clearfix">
+		<div class="col-md-1 column" style="background-color:black">
+		</div>
+		
+		
+		<div class="col-md-10 column content-loginbox">
+			<div style="width:20%;float:left"><img alt="140x140" src="img/logo.png" /></div>
+			
+			<div style="width:60%;float:right" class="loginbox">
+				<%if(session.getAttribute("user")!=null){%>
+		<table class="table" style="margin:20px">
+			<tbody>
+				<tr><td>欢迎,${sessionScope.user.userName}</td>
+					<td><a href="javascript:void(0)" onclick="exitlogin()">注销</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<%} else{ %>	
+				<table class="table" >
+					<tbody>
+						<tr>
+							<td class="col_1" >
+								<font>帐号</font>
+							</td>
+							<td class="col_2">
+								<input type="text"  id="userName"  placeholder="请输入帐号">
+							</td>
+							<td class="col_3">
+								<input type="checkbox" ><font>自动登录</font>
+							</td>
+							<td class="col_4">
+								<span style="cursor: pointer;">找回密码</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="col_1">
+								密码
+							</td>
+							<td class="col_2">
+								<input type="text"  id="userPassword"  placeholder="请输入密码">
+							</td>
+							<td class="col_3"">
+								<button    style="width: 80px;" id="login">登录</button>
+							</td>
+							<td class="col_4">
+								<span style="cursor: pointer;color: #369;font-weight: 700;" class="aurl" url="regist.jsp">注册</span>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+				<% }%>
+			</div>
+			
+		</div>
+		
+		<div class="col-md-1 column">
+		</div>
+	</div>

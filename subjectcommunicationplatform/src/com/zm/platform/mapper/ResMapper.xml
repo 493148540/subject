@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.platform.dao.ResDao">
+ <insert id="insert" useGeneratedKeys="true" keyProperty="resId"> 
+	 insert into res(resId , resCode , resName , resUserId , resUploadTime , resSize , resDownloadCount , resSubjectId , resTypeId , resDescribe , resTag , resPoint , resUrl , resIcon ) 
+ 	 values(#{resId} , #{resCode} , #{resName} , #{resUserId} , #{resUploadTime} , #{resSize} , #{resDownloadCount} , #{resSubjectId} , #{resTypeId} , #{resDescribe} , #{resTag} , #{resPoint} , #{resUrl} , #{resIcon} )
+</insert>
+
+<delete id="deleteById">
+	delete from res where resId = #{resId}
+</delete>
+ <update id="update" parameterType="Object">  
+	update res  set resId = #{resId} , resCode = #{resCode} , resName = #{resName} , resUserId = #{resUserId} , resUploadTime = #{resUploadTime} , resSize = #{resSize} , resDownloadCount = #{resDownloadCount} , resSubjectId = #{resSubjectId} , resTypeId = #{resTypeId} , resDescribe = #{resDescribe} , resTag = #{resTag} , resPoint = #{resPoint} , resUrl = #{resUrl} , resIcon = #{resIcon}  
+	where resId = #{resId}   
+</update> 
+
+	<update id="updateNotNull" parameterType="Object">
+		update Res  set   <include refid="Update_Column" />
+		where resId = #{resId}
+	</update>
+ <sql id="Update_Column"> 
+	 resId=#{resId} 
+	<if test="resCode != null and resCode != ''" >
+		 , resCode =  #{resCode}
+	</if>
+	<if test="resName != null and resName != ''" >
+		 , resName =  #{resName}
+	</if>
+	<if test="resUserId != null and resUserId != 0" >
+		 , resUserId =  #{resUserId}
+	</if>
+	<if test="resUploadTime != null and resUploadTime != ''" >
+		 , resUploadTime =  #{resUploadTime}
+	</if>
+	<if test="resSize != null and resSize != ''" >
+		 , resSize =  #{resSize}
+	</if>
+	<if test="resDownloadCount != null and resDownloadCount != 0" >
+		 , resDownloadCount =  #{resDownloadCount}
+	</if>
+	<if test="resSubjectId != null and resSubjectId != 0" >
+		 , resSubjectId =  #{resSubjectId}
+	</if>
+	<if test="resTypeId != null and resTypeId != 0" >
+		 , resTypeId =  #{resTypeId}
+	</if>
+	<if test="resDescribe != null and resDescribe != ''" >
+		 , resDescribe =  #{resDescribe}
+	</if>
+	<if test="resTag != null and resTag != ''" >
+		 , resTag =  #{resTag}
+	</if>
+	<if test="resPoint != null and resPoint != 0" >
+		 , resPoint =  #{resPoint}
+	</if>
+	<if test="resUrl != null and resUrl != ''" >
+		 , resUrl =  #{resUrl}
+	</if>
+	<if test="resIcon != null and resIcon != ''" >
+		 , resIcon =  #{resIcon}
+	</if>
+</sql>
+
+<select id="findAll" resultType="com.zm.platform.domain.Res">
+	 select * from res
+</select>
+
+<select id="findById" resultType="com.zm.platform.domain.Res">
+	 select * from res where resId=#{resId}
+</select>
+
+<select id="queryByList" resultType="com.zm.platform.domain.Res"  parameterType="Object">
+	 select SQL_CALC_FOUND_ROWS * from res
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+</select>
+<sql id="sortsql">
+	<trim >
+		<if test="sort != null  and sort!=''  and order!=null and order!=''">
+			order by ${sort}   ${order} 
+		</if>
+		<if test="page != null and rows!=null">
+			limit #{page} ,#{rows}
+		</if>
+	</trim>
+</sql>
+ <sql id="Example_Where_Clause"> 
+	 where 1=1 
+<trim  suffixOverrides="," >
+	<if test="resId != null and resId != 0" >
+		 and resId =  #{resId}
+	</if>
+	<if test="resCode != null and resCode != ''" >
+		 and resCode =  #{resCode}
+	</if>
+	<if test="resName != null and resName != ''" >
+		 and resName =  #{resName}
+	</if>
+	<if test="resUserId != null and resUserId != 0" >
+		 and resUserId =  #{resUserId}
+	</if>
+	<if test="resUploadTime != null and resUploadTime != ''" >
+		 and resUploadTime =  #{resUploadTime}
+	</if>
+	<if test="resSize != null and resSize != ''" >
+		 and resSize =  #{resSize}
+	</if>
+	<if test="resDownloadCount != null and resDownloadCount != 0" >
+		 and resDownloadCount =  #{resDownloadCount}
+	</if>
+	<if test="resSubjectId != null and resSubjectId != 0" >
+		 and resSubjectId =  #{resSubjectId}
+	</if>
+	<if test="resTypeId != null and resTypeId != ''" >
+		 and resTypeId =  #{resTypeId}
+	</if>
+	<if test="resDescribe != null and resDescribe != ''" >
+		 and resDescribe =  #{resDescribe}
+	</if>
+	<if test="resTag != null and resTag != ''" >
+		 and resTag =  #{resTag}
+	</if>
+	<if test="resPoint != null and resPoint != 0" >
+		 and resPoint =  #{resPoint}
+	</if>
+	<if test="resUrl != null and resUrl != ''" >
+		 and resUrl =  #{resUrl}
+	</if>
+	<if test="resIcon != null and resIcon != ''" >
+		 and resIcon =  #{resIcon}
+	</if>
+</trim>
+</sql>
+
+<select id="findObject" resultType="com.zm.platform.domain.Res"  parameterType="Object">
+	 select  * from res
+	<include refid="Example_Where_Clause" />
+order by resId desc limit 0,1
+</select>
+</mapper>
