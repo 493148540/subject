@@ -37,9 +37,7 @@ public class testUtil {
 	
 	@Test
 	public void testtime(){
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println("当前时间：" + sdf.format(d));
+		System.out.println("saasass..sddsd.s....RAR".replaceAll("^[\\S]*[\\.]", "").toLowerCase());
 	}
 	
 	@Test

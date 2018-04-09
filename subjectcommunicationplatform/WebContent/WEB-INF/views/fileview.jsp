@@ -141,6 +141,10 @@ height:auto;
 	color:white;
 	background-color:red;
 }
+.listitem{
+border-bottom: 1px solid #eee;
+margin-bottom:20px;
+}
 </style>
 </head>
 <body>
@@ -160,11 +164,10 @@ height:auto;
 							<dt>技术领域:</dt>
 								<dd>
 									<ul class="cate_list" id="cate_list">
-										<li><a data-id="0">全部</a></li>
+										<li><a data-id="0" href="fileview-0-${restypeid}">全部</a></li>
 										<c:forEach items="${subjectlist}"  var="item" varStatus="status">
-										<li><a  data-id="${item.subjectId}">${item.subjectName}</a></li>
+										<li><a  data-id="${item.subjectId}" href="fileview-${item.subjectId}-${restypeid}">${item.subjectName}</a></li>
 										</c:forEach>
-										
 									</ul>
 								</dd>
 						
@@ -174,9 +177,9 @@ height:auto;
 							<dt>资源类型:</dt>
 								<dd>
 									<ul class="cate_list" id="restypelist">
-										<li><a data-id="0">全部</a></li>
+										<li><a data-id="0" href="fileview-${subjectid}-0">全部</a></li>
 										<c:forEach items="${restype.rows}"  var="item" varStatus="status">
-										<li><a  data-id="${item.dictionariesCode}">${item.dictionariesTypeName}</a></li>
+										<li><a  data-id="${item.dictionariesCode}" href="fileview-${subjectid}-${item.dictionariesCode}">${item.dictionariesTypeName}</a></li>
 										</c:forEach>	
 									</ul>
 								</dd>
@@ -185,20 +188,22 @@ height:auto;
 					
 					<div class="reslist">
 						<c:forEach items="${list.rows}"  var="item" varStatus="status">
-								
+							<div class="listitem">
 							<dt>
-								<img src="${item.resIcon}" onerror="this.src='upload/image/unkonw.svg'"/>
+								<img src="upload/image/${item.resIcon}.svg" onerror="this.src='upload/image/unkonw.svg'"/>
 							</dt>
 							<dd>
-								<a>${item.resName}</a>
+								<a href="download-${item.resId}">${item.resName}</a>
 								<p>${item.resDescribe}</p>
 								<div class="auther"><span>上传者:tom</span> <span>上传时间:${item.resUploadTime}</span><span>资源大小:${item.resSize}</span><span>下载个数:${item.resDownloadCount}</span></div>
 							</dd>
+							</div>
 						</c:forEach>
 						
 						
 						
 					</div>
+					<%@include file="pagelist.jsp"%>
 				</div>
 		
 				<div class="col-md-3 column">
@@ -228,11 +233,22 @@ height:auto;
 <script>
 	$(function(){
 		debugger;
-		var str = location.pathname.substring(location.pathname.indexOf('-')+1).split('-');
-		$('#cate_list [data-id="'+str[0]+'"]');
-		$('#restypelist [data-id="'+str[1]+'"]');
+	
+		$('#cate_list [data-id="${subjectid}"]').css('background-color','#EE3123');
+		$('#cate_list [data-id="${subjectid}"]').css('font-weight','700');
+		$('#cate_list [data-id="${subjectid}"]').css('color','#fff');
+		$('#restypelist [data-id="${restypeid}"]').css('background-color','#EE3123');
+		$('#restypelist [data-id="${restypeid}"]').css('font-weight','700');
+		$('#restypelist [data-id="${restypeid}"]').css('color','#fff');
+		$('#restypelist [data-id="${restypeid}"]');
 		
 		
+		//设置分页组件
+		setPages({
+			url:"/subjectcommunicationplatform/fileview-${subjectid}-${restypeid}-",
+			queryparam:""
+		});
+	
 	})
 
 </script>

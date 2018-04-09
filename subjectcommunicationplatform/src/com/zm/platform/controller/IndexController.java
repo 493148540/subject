@@ -1,8 +1,12 @@
 package com.zm.platform.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zm.platform.domain.Dictionaries;
 import com.zm.platform.domain.Post;
+import com.zm.platform.domain.Res;
 import com.zm.platform.domain.Subject;
 import com.zm.platform.domain.TopicType;
 import com.zm.platform.querydomain.QueryDictionaries;
@@ -26,6 +31,7 @@ import com.zm.platform.service.PostService;
 import com.zm.platform.service.ResService;
 import com.zm.platform.service.SubjectService;
 import com.zm.platform.service.TopicTypeService;
+import com.zm.platform.util.FileDownload;
 
 @Controller
 public class IndexController {
@@ -35,20 +41,27 @@ public class IndexController {
 	@Autowired  SubjectService subjectService;
 	@Autowired	DictionariesService dictionariesService;
 	@Autowired ResService resService;
+	
+	
 	@RequestMapping("index")
 	public ModelAndView index(QueryPost post){
 		System.out.println("-----------index");
+		
 		Map<String,Object> modelmap= new HashMap<String,Object>();
-		modelmap.put("topic",topicTypeService.findAll());
-		modelmap.put("thispage", post.getPage());
+		
+		modelmap.put("topic",topicTypeService.findBySubjectid(3));
+		modelmap.put("thispage", 1);
+		post.setTopicTypeSubjectId((long)3);
 		post.setPostParentId((long)0);
 		post.setRows(10);
-		post.setPage((post.getPage()-1)*post.getRows());
+		post.setPage((1-1)*post.getRows());
 		post.setOrder("desc");
 		post.setSort("postLastreplyTime");
-
-		modelmap.put("postlist", postService.findAllDetailPost(post));
+		modelmap.put("subjectid", 3);
+		modelmap.put("subjectlist", subjectService.getSubjectsMenu());
+		modelmap.put("list", postService.findAllDetailPost(post));
 		modelmap.put("param", post);
+		
 								 
 		return new ModelAndView("index",modelmap);
 	}
@@ -132,10 +145,12 @@ public class IndexController {
 		return "regist";
 	}
 	
-	@RequestMapping(value="fileview-{subjectid}-{restypeid}")
+	@RequestMapping(value="fileview-{subjectid}-{restypeid}-{page}")
 	public ModelAndView fileview(
 			@PathVariable("subjectid") Long subjectid,
-			@PathVariable("restypeid") Long restypeid
+			@PathVariable("restypeid") Long restypeid,
+			@PathVariable("page") int page,
+			QueryRes res
 			)
 	{
 		ModelAndView model = new ModelAndView("fileview");
@@ -145,11 +160,28 @@ public class IndexController {
 		dictionaries.setRows(99999);
 		dictionaries.setDictionariesTypeCode("resType");
 		map.put("restype", dictionariesService.findByList(dictionaries));
-		QueryRes res = new QueryRes();
+		map.put("subjectid", subjectid);
+		map.put("restypeid", restypeid);
+		map.put("thispage", page);
 		res.setResSubjectId(subjectid);
 		res.setResTypeId(restypeid);
-		res.setPage((res.getPage()-1)*res.getRows());
+		res.setPage((page-1)*res.getRows());
 		map.put("list", resService.findByList(res));
 		return model;
 	}
+	@RequestMapping("download-{id}")
+	public void test(@PathVariable("id") long id,HttpServletRequest request ,HttpServletResponse response) throws IOException{
+		Res res = resService.findById(id);
+		try{
+			FileDownload.download(res.getResName()+"."+res.getResIcon(),res.getResUrl(), request, response);
+		}catch(Exception e){
+			//response.setStatus(404);
+			
+			e.printStackTrace();
+			response.sendError(400);
+		}
+		
+	}
+	
+	
 }

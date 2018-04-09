@@ -79,10 +79,10 @@ $(function(){
 			
 	})
 	
-	var arr = location.pathname.replace('/subjectcommunicationplatform/forum-','').split('-');
-	$('#subjectid-'+arr[0]).css('background-color','#EE3123');
-	$('#subjectid-'+arr[0]).css('font-weight','700');
-	$('#subjectid-'+arr[0]).css('color','#fff');
+	//var arr = location.pathname.replace('/subjectcommunicationplatform/forum-','').split('-');
+	$('#subjectid-'+"${subjectid}").css('background-color','#EE3123');
+	$('#subjectid-'+"${subjectid}").css('font-weight','700');
+	$('#subjectid-'+"${subjectid}").css('color','#fff');
 })
 
 

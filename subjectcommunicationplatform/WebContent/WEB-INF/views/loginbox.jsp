@@ -152,7 +152,7 @@
 				<ul class="clearfix">
 					<li class="active" id="menulistat1"><a url="index">论坛</a></li>
 					<li id="menulistat2"><a href="article">文章</a></li>
-					<li id="menulistat3"><a href="fileview">资源</a></li>
+					<li id="menulistat3"><a href="fileview-0-0">资源</a></li>
 					<li id="menulistat4"><a href="video">视频</a></li>
 					<li id="menulistat5"><a >测试</a></li>
 				</ul>

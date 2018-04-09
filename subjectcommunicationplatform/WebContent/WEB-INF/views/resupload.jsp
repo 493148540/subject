@@ -64,10 +64,11 @@
 				  <div class="form-group">
 				    <label for="lastname" class="col-sm-2 control-label">文件</label>
 				    <div class="col-sm-8">
-				     	<input type="file" class="form-control">
+				     	<input type="file" name="file"id="file" class="form-control" >
 				    </div>
 				    <div class="col-sm-2">
-				     	<button type="button" class="btn btn-default">上传</button>
+				    	<!-- onclick事件传入file标签的id -->
+				     	<button type="button" class="btn btn-default" onclick="uploadfile('file')">上传</button>
 				    </div>
 				  </div>
 		
@@ -92,9 +93,11 @@
 	$(function(){
 		$('#saveres').click(function(){
 			var form = new FormData($('#myModal_uploadRes').find('form')[0]);
-			alert(form.get("resDescription"));
+			form.set('resUploadTime',getTime('yyyy-mm-dd'));
+			form.set('resSize',getFileSize($('#file')[0].files[0].size));
+	
 			$.ajax({
-				url:'resmanage/add',
+				url:'resmanage/insert',
 				type:'post',
 				data:form,
 				dataType:'JSON',
@@ -111,5 +114,26 @@
 			})
 		});
 	})
-
+	
+function uploadfile(inputid){
+		var file = $('#'+inputid)[0].files[0];
+		var formdata =new FormData();
+		formdata.append('file',file);
+		$.ajax({
+			url:'uploadfile',
+			type:'post',
+			data:formdata,
+			dataType:'JSON',
+			cache: false,                      // 不缓存
+		    processData: false,                // jQuery不要去处理发送的数据
+		    contentType: false,                // jQuery不要去设置Content-Type请求头
+			success:function(rsp){
+				debugger;
+				alert(rsp.obj);
+			},
+			error:function(e){	
+				alert("上传失败，系统抛出了以下错误"+e.messge);
+			}
+		})
+	}
 </script>

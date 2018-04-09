@@ -36,7 +36,7 @@ public class FileUpload {
 		return filename;
 	}
 	//自定义名字
-	public static String writefile(MultipartFile file,String path,String fileName) throws Exception{
+	public static String writefile(MultipartFile file,String path,String filename) throws Exception{
 		if(file.getOriginalFilename()==null||file.getOriginalFilename()==""){
 			return "";
 		}
@@ -46,7 +46,6 @@ public class FileUpload {
 		System.out.println(path);
 		if(!files.exists())
 			files.mkdirs();
-		String filename =fileName+"."+getFileType(file.getOriginalFilename());
 		System.out.println(filename);
 		File img = new File(files,filename);
 		System.out.println(getFileType(file.getOriginalFilename()));

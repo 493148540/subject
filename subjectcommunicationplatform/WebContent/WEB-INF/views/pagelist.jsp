@@ -111,7 +111,7 @@ function setPages(data){
 		list += "<a href='"+url+"page="+maxpage+"'>..."+maxpage+"</a>"	;
 	}
 	
-	list += '<span><input class="px" type="text" onkeydown="if(event.keyCode==13) {window.location=\''+url+'page=\'+this.value+\'\'}">/'+maxpage+'</span>';
+	list += '<span><input class="px" type="text" onkeydown="if(event.keyCode==13) {window.location=\''+url+'\'+this.value+\'\'}">/'+maxpage+'</span>';
 	pagelist.append($(list));
 	
 	

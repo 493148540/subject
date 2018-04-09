@@ -12,7 +12,7 @@
 	<!-- 导入资源文件 -->
 
 	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
-	<context:property-placeholder location="classpath:appconfig.properties" ignore-unresolvable="true"/>
+	
 	<context:component-scan base-package="com.zm.platform">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
