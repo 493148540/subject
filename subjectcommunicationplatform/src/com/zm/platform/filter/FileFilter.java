@@ -3,13 +3,8 @@ package com.zm.platform.filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.zm.platform.domain.User;
-import com.zm.platform.service.UserService;
 
 public class FileFilter implements HandlerInterceptor{
 

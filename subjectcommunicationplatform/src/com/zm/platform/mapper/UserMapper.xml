@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zm.platform.dao.UserDao">
  <insert id="insert" useGeneratedKeys="true" keyProperty="userId"> 
-	 insert into user(userId , userName , userPassword , userRoleId , userEmail , userHead ) 
- 	 values(#{userId} , #{userName} , #{userPassword} , #{userRoleId} , #{userEmail} , #{userHead} )
+	 insert into user(userId , userName , userPassword , userRoleId , userEmail , userHead , userResPoint ) 
+ 	 values(#{userId} , #{userName} , #{userPassword} , #{userRoleId} , #{userEmail} , #{userHead} , #{userResPoint} )
 </insert>
 
 <delete id="deleteById">
 	delete from user where userId = #{userId}
 </delete>
  <update id="update" parameterType="Object">  
-	update user  set userId = #{userId} , userName = #{userName} , userPassword = #{userPassword} , userRoleId = #{userRoleId} , userEmail = #{userEmail} , userHead = #{userHead}  
+	update user  set userId = #{userId} , userName = #{userName} , userPassword = #{userPassword} , userRoleId = #{userRoleId} , userEmail = #{userEmail} , userHead = #{userHead} , userResPoint = #{userResPoint}  
 	where userId = #{userId}   
 </update> 
 
@@ -34,6 +34,9 @@
 	</if>
 	<if test="userHead != null and userHead != ''" >
 		 , userHead =  #{userHead}
+	</if>
+	<if test="userResPoint != null and userResPoint != 0" >
+		 , userResPoint =  #{userResPoint}
 	</if>
 </sql>
 
@@ -80,6 +83,9 @@
 	</if>
 	<if test="userHead != null and userHead != ''" >
 		 and userHead =  #{userHead}
+	</if>
+	<if test="userResPoint != null and userResPoint != 0" >
+		 and userResPoint =  #{userResPoint}
 	</if>
 </trim>
 </sql>

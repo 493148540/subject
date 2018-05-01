@@ -151,6 +151,9 @@ border: 1px solid #CDCDCD !important;
 .editbox{
 	padding:20px;
 }
+.edui-container .edui-scale{
+box-sizing: unset;
+}
 </style>
 </head>
 <body style="padding-bottom:100px">
@@ -248,7 +251,7 @@ border: 1px solid #CDCDCD !important;
 								
 					<tbody style="border-bottom: 1px solid #C2D5E3;">
 					<tr>
-					 	<th><em>[<a href="/subjectcommunicationplatform/index?postTopicTypeId=${item.topicTypeId }">${item.topicTypeName}</a>]</em><a href="thread-${item.postId }-1" >${item.postName}</a></th>
+					 	<th><em>[<a href="/subjectcommunicationplatform/forum-${subjectid}-1?postTopicTypeId=${item.topicTypeId }">${item.topicTypeName}</a>]</em><a href="thread-${item.postId }-1" >${item.postName}</a></th>
 						<td class="by"><cite><a data-userid="${item.postUserId}">${item.userName}</a></cite><em><span>${item.postTime}</span></em></td>
 						<td class=""><cite><a href="javascript:void(0)">${item.postReplyNum }</a></cite><em>${item.postLookedNum}</em></td>
 						<td class=""><cite><a href="javascript:void(0)"data-userid="${item.postLastreply}">${item.postLastreplyName}</a></cite><em>${item.postLastreplyTime }</em></td>
@@ -278,7 +281,7 @@ border: 1px solid #CDCDCD !important;
 					</div><!-- /btn-group -->
 					<input type="text" class="form-control" name="postName">
 				</div><!-- /input-group -->
-				<script type="text/plain" id="myEditor" name="postContent" style="width:100%;height:240px;">
+				<script type="text/plain" id="myEditor" name="postContent" style="width:100%;height:240px;box-sizing: unset;">
 				</script>
 				</form>
 				<button class="btn btn-default" type="button"  onclick="doFatie(this)"style="margin-top:10px">发帖</button>
@@ -309,7 +312,7 @@ $(function(){
 		queryparam:"postTopicTypeId=${param.postTopicTypeId}"
 	});
 	
-	$('.edui-container').css("width","100%");
+	//$('.edui-container').css("width","100%");
 	//检测草稿里是否存有内容 如有 则填入编辑框
 	if(typeof(window.localStorage.draftcontent)!= 'undefined' &&window.localStorage.draftcontent!=null && window.localStorage.draftcontent!=""&&typeof(window.localStorage.draftcontent)!="undefined")
 	{
@@ -327,7 +330,7 @@ $(function(){
 				var tbody = 
 					'<tbody style="border-bottom: 1px solid #C2D5E3;">'+
 					'<tr>'+
-				 	'<th><em>[<a href="/subjectcommunicationplatform/index?postTopicTypeId="'+i.topicTypeId+'>'+i.topicTypeName+'</a>]</em><a data-id="'+i.postId+'"onclick="openview(this)">'+i.postName+'</a></th>'+
+				 	'<th><em>[<a href="/subjectcommunicationplatform/forum-${subjectid}-1?postTopicTypeId='+parseInt(i.topicTypeId)+'">'+i.topicTypeName+'</a>]</em><a data-id="'+i.postId+'"onclick="openview(this)">'+i.postName+'</a></th>'+
 					'<td class="by"><cite><a data-userid="'+i.postUserId+'">'+i.userName+'</a></cite><em><span>'+i.postTime+'</span></em></td>'+
 					'<td class=""><cite><a href="javascript:void(0)">'+i.postReplyNum+'</a></cite><em>'+i.postLookedNum+'</em></td>'+
 					'<td class=""><cite><a href="javascript:void(0)"data-userid="'+i.postLastreply+'">'+i.postLastreplyName+'</a></cite><em>'+i.postLastreplyTime+'</em></td>'+

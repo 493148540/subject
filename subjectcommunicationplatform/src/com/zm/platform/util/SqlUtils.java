@@ -12,12 +12,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zm.platform.dao.Dao;
-import com.zm.platform.domain.Dictionaries;
-import com.zm.platform.domain.Post;
-import com.zm.platform.domain.Res;
-import com.zm.platform.domain.Subject;
-import com.zm.platform.domain.TopicType;
-import com.zm.platform.domain.User;
+import com.zm.platform.domain.DownLoadRecord;
+import com.zm.platform.domain.T_BAS_DATAPRODMATERIALS;
 
 
 
@@ -31,8 +27,8 @@ public class SqlUtils {
 	@Test
 	public void testgetSql11() throws IOException{
 		
-		getallsql(new Res());
-		//getCreatetable(new Res());
+		getallsql(new T_BAS_DATAPRODMATERIALS());
+	//	getCreatetable(new DownLoadRecord());
 		
 	}
 	public void testupdate(String sql) throws IOException{
@@ -106,13 +102,15 @@ public class SqlUtils {
 			 sqlcolumn.append(" , ");
 			 sqlvalue.append("#{");
 			 sqlvalue.append(fields[i].getName());
-			 sqlvalue.append("} , ");
+			// sqlvalue.append("} , ");
+			 sqlvalue.append(",jdbcType=VARCHAR} , ");
 			 
 		 }
 		 sqlcolumn.append(fields[i].getName());
 		 sqlcolumn.append(" )");
 		 sqlvalue.append("#{");
 		 sqlvalue.append(fields[i].getName());
+		// sqlvalue.append(",jdbcType=VARCHAR} )");
 		 sqlvalue.append("} )");
 		 sqlvalue.append("\n</insert>");
 		 sql.append(sqlcolumn);
@@ -140,7 +138,8 @@ public class SqlUtils {
 			 sqlcolumn.append(" = ");
 			 sqlcolumn.append("#{");
 			 sqlcolumn.append(fields[i].getName());
-			 sqlcolumn.append("} , ");
+			 sqlcolumn.append(",jdbcType=VARCHAR} , ");
+			// sqlcolumn.append("} , ");
 			
 			 
 		 }
@@ -266,7 +265,8 @@ public class SqlUtils {
 		StringBuffer str = new StringBuffer("");
 		str.append("\n	<update id=\"updateNotNull\" parameterType=\"Object\">");
 		str.append("\n\t	update "+clazz.getSimpleName()+"  set   <include refid=\"Update_Column\" />");
-		str.append("\n\t	where "+fields[0].getName()+" = #{"+fields[0].getName()+"}");
+		//str.append("\n\t	where "+fields[0].getName()+" = #{"+fields[0].getName()+"}");
+		str.append("\n\t	where "+fields[0].getName()+" = #{"+fields[0].getName()+",jdbcType=VARCHAR}");
 		str.append("\n	</update>");
 		return str.toString();
 		
@@ -277,8 +277,8 @@ public class SqlUtils {
 		 StringBuffer sql = new StringBuffer();
 		 Field[] fields = clazz.getDeclaredFields(); 
 		 sql.append(" <sql id=\"Update_Column\"> \n");
-		 sql.append("\t "+fields[0].getName()+"=#{"+fields[0].getName()+"} ");
-		
+		// sql.append("\t "+fields[0].getName()+"=#{"+fields[0].getName()+"} ");
+		 sql.append("\t "+fields[0].getName()+"=#{"+fields[0].getName()+",jdbcType=VARCHAR} ");
 		
 		 
 		 int i=1;
@@ -287,7 +287,8 @@ public class SqlUtils {
 				 sql.append("\n\t<if test=\""+fields[i].getName()+" != null and "+fields[i].getName()+" != ''\" >");
 			 else
 				 sql.append("\n\t<if test=\""+fields[i].getName()+" != null and "+fields[i].getName()+" != 0\" >");
-			 sql.append("\n\t\t , "+fields[i].getName()+" =  #{"+fields[i].getName()+"}");
+			// sql.append("\n\t\t , "+fields[i].getName()+" =  #{"+fields[i].getName()+"}");
+			 sql.append("\n\t\t , "+fields[i].getName()+" =  #{"+fields[i].getName()+",jdbcType=VARCHAR}");
 			 sql.append("\n\t</if>");
 		 }
 		 

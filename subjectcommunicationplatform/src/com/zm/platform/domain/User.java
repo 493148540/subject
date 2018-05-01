@@ -11,8 +11,26 @@ public class User {
 	private int userRoleId;
 	private String userEmail;
 	private String userHead;
+	private int userResPoint;
 	
 	
+	public User(Long userId, String userName, String userPassword, int userRoleId, String userEmail, String userHead,
+			int userResPoint) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.userRoleId = userRoleId;
+		this.userEmail = userEmail;
+		this.userHead = userHead;
+		this.userResPoint = userResPoint;
+	}
+	public int getUserResPoint() {
+		return userResPoint;
+	}
+	public void setUserResPoint(int userResPoint) {
+		this.userResPoint = userResPoint;
+	}
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -71,7 +89,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + ", userRoleId="
-				+ userRoleId + ", userEmail=" + userEmail + ", userHead=" + userHead + "]";
+				+ userRoleId + ", userEmail=" + userEmail + ", userHead=" + userHead + ", userResPoint=" + userResPoint
+				+ "]";
 	}
 	
 	

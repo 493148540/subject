@@ -143,17 +143,17 @@
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         ,toolbar:[
-            'source emotion image video attachment | bold attachment | forecolor backcolor | removeformat |',
-            ' selectall cleardoc ' ,
+            'source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+            'insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize' ,
             '| justifyleft justifycenter justifyright justifyjustify |',
-            'link',
-            '| horizontal preview fullscreen ', 'drafts', 'formula'
+            'link unlink | emotion image video  | map',
+            '| horizontal print preview fullscreen', 'drafts', 'formula'
         ]
 
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
-        //,lang:"zh-cn"
-        //,langPath:URL +"lang/"
+        ,lang:"zh-cn"
+        ,langPath:URL +"lang/"
 
         //ie下的链接自动监测
         //,autourldetectinie:false
@@ -202,13 +202,14 @@
 
         //fontfamily
         //字体设置
-//        ,'fontfamily':[
-//              { name: 'songti', val: '宋体,SimSun'},
-//          ]
+        ,'fontfamily':[
+              { name: 'songti', val: '宋体,SimSun'},
+          ]
 
         //fontsize
         //字号
-        //,'fontsize':[10, 11, 12, 14, 16, 18, 20, 24, 36]
+   
+        ,'fontsize':[10, 11, 12, 14, 16, 18, 20, 24, 36]
 
         //paragraph
         //段落格式 值留空时支持多语言自动识别，若配置，则以配置值为准
@@ -234,7 +235,7 @@
 
         //autoHeightEnabled
         // 是否自动长高,默认true
-        //,autoHeightEnabled:false
+        //,autoHeightEnabled:true
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true

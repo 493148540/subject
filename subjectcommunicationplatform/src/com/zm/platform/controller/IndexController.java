@@ -2,7 +2,6 @@ package com.zm.platform.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,27 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zm.platform.domain.Dictionaries;
-import com.zm.platform.domain.Post;
+import com.zm.platform.domain.DownLoadRecord;
 import com.zm.platform.domain.Res;
-import com.zm.platform.domain.Subject;
-import com.zm.platform.domain.TopicType;
+import com.zm.platform.domain.User;
 import com.zm.platform.querydomain.QueryDictionaries;
 import com.zm.platform.querydomain.QueryPost;
 import com.zm.platform.querydomain.QueryRes;
 import com.zm.platform.service.DictionariesService;
+import com.zm.platform.service.DownLoadRecordService;
 import com.zm.platform.service.PostService;
 import com.zm.platform.service.ResService;
 import com.zm.platform.service.SubjectService;
 import com.zm.platform.service.TopicTypeService;
-import com.zm.platform.util.FileDownload;
 
 @Controller
 public class IndexController {
@@ -41,7 +35,7 @@ public class IndexController {
 	@Autowired  SubjectService subjectService;
 	@Autowired	DictionariesService dictionariesService;
 	@Autowired ResService resService;
-	
+	@Autowired DownLoadRecordService downLoadRecordService;
 	
 	@RequestMapping("index")
 	public ModelAndView index(QueryPost post){
@@ -172,14 +166,49 @@ public class IndexController {
 	@RequestMapping("download-{id}")
 	public void test(@PathVariable("id") long id,HttpServletRequest request ,HttpServletResponse response) throws IOException{
 		Res res = resService.findById(id);
+		User user = (User)request.getSession().getAttribute("user");
+		
+			
 		try{
-			FileDownload.download(res.getResName()+"."+res.getResIcon(),res.getResUrl(), request, response);
+			DownLoadRecord record = downLoadRecordService.findObject(new DownLoadRecord(null, res.getResId(), user.getUserId()));
+			if(user==null||(user.getUserResPoint()<res.getResPoint())&&record==null){
+				response.sendError(4001);
+				return;
+			}
+			resService.download(res, request, response);
+			if(record==null)
+			resService.doChangePoint(res,user);
 		}catch(Exception e){
 			//response.setStatus(404);
-			
-			e.printStackTrace();
-			response.sendError(400);
+			response.sendError(410);
 		}
+		
+		
+	}
+	
+	@RequestMapping("filedetail-{id}")
+	public ModelAndView filedetail(@PathVariable("id") long id,HttpServletRequest request ,HttpServletResponse response){
+		ModelAndView modelview = new ModelAndView("filedetail");
+		Map<String,Object> modelmap = modelview.getModel();
+		Res res = resService.findById(id);
+		modelmap.put("res",res);
+		
+		return modelview;
+				
+	}
+	@RequestMapping("usercenter")
+	public ModelAndView usercenter(){
+		ModelAndView modelview = new ModelAndView("usercenter");
+		
+		
+		return modelview;
+				
+	}
+	
+	@RequestMapping("manageindex")
+	public ModelAndView manageindex(){
+		ModelAndView modelview = new ModelAndView("manage/index");
+		return modelview;
 		
 	}
 	

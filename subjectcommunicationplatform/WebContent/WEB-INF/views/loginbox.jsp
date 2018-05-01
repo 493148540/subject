@@ -79,7 +79,7 @@
          
 	.content{
 	}
-	.active{
+	.menulist .active{
 		background-color:#00bcd44a
 	}
 </style>
@@ -142,6 +142,7 @@
 		</div>
 		
 		<div class="col-md-1 column">
+		
 		</div>
 	</div>
 	<div class="row clearfix">
@@ -150,11 +151,11 @@
 		<div class="col-md-10 column">
 			<div  class="menulist">
 				<ul class="clearfix">
-					<li class="active" id="menulistat1"><a url="index">论坛</a></li>
-					<li id="menulistat2"><a href="article">文章</a></li>
-					<li id="menulistat3"><a href="fileview-0-0">资源</a></li>
-					<li id="menulistat4"><a href="video">视频</a></li>
-					<li id="menulistat5"><a >测试</a></li>
+					<li class="active" id="forum"><a href="index">论坛</a></li>
+				
+					<li id="fileview"><a href="fileview-0-0-1">资源</a></li>
+					
+					<li id="usercenter"><a href="usercenter">个人中心</a></li>
 				</ul>
 			</div>
 			</div><div class="col-md-1 column">
@@ -179,8 +180,22 @@ var exitlogin = function(){
 		
 	});
 }
+
+function setChoosedMenu(){
+	var thisurl = window.location.pathname.replace(("${pageContext.request.contextPath}/"),"").replace(/(-)(\S+)/g,"");
+	debugger;
+	if(thisurl=="index"){
+		$('.menulist ul li').removeClass('active');
+		$('.menulist ul li:eq(0)').addClass('active');
+	}
+		
+	else{
+		$('.menulist ul li').removeClass('active');
+		$('.menulist ul li'+'#'+thisurl).addClass('active');
+	}
+}
 $(function(){
-	
+	setChoosedMenu();
 	
 	$('#login').click(function(){
 		var username= $('#userName').val();

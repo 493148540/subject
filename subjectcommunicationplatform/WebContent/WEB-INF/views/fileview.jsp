@@ -164,9 +164,9 @@ margin-bottom:20px;
 							<dt>技术领域:</dt>
 								<dd>
 									<ul class="cate_list" id="cate_list">
-										<li><a data-id="0" href="fileview-0-${restypeid}">全部</a></li>
+										<li><a data-id="0" href="fileview-0-${restypeid}-1">全部</a></li>
 										<c:forEach items="${subjectlist}"  var="item" varStatus="status">
-										<li><a  data-id="${item.subjectId}" href="fileview-${item.subjectId}-${restypeid}">${item.subjectName}</a></li>
+										<li><a  data-id="${item.subjectId}" href="fileview-${item.subjectId}-${restypeid}-1">${item.subjectName}</a></li>
 										</c:forEach>
 									</ul>
 								</dd>
@@ -177,9 +177,9 @@ margin-bottom:20px;
 							<dt>资源类型:</dt>
 								<dd>
 									<ul class="cate_list" id="restypelist">
-										<li><a data-id="0" href="fileview-${subjectid}-0">全部</a></li>
+										<li><a data-id="0" href="fileview-${subjectid}-0-1">全部</a></li>
 										<c:forEach items="${restype.rows}"  var="item" varStatus="status">
-										<li><a  data-id="${item.dictionariesCode}" href="fileview-${subjectid}-${item.dictionariesCode}">${item.dictionariesTypeName}</a></li>
+										<li><a  data-id="${item.dictionariesCode}" href="fileview-${subjectid}-${item.dictionariesCode}-1">${item.dictionariesTypeName}</a></li>
 										</c:forEach>	
 									</ul>
 								</dd>
@@ -193,7 +193,7 @@ margin-bottom:20px;
 								<img src="upload/image/${item.resIcon}.svg" onerror="this.src='upload/image/unkonw.svg'"/>
 							</dt>
 							<dd>
-								<a href="download-${item.resId}">${item.resName}</a>
+								<a href="filedetail-${item.resId}">${item.resName}</a>
 								<p>${item.resDescribe}</p>
 								<div class="auther"><span>上传者:tom</span> <span>上传时间:${item.resUploadTime}</span><span>资源大小:${item.resSize}</span><span>下载个数:${item.resDownloadCount}</span></div>
 							</dd>
@@ -207,14 +207,7 @@ margin-bottom:20px;
 				</div>
 		
 				<div class="col-md-3 column">
-					<div class="user_info">
-						<div><img src="${sessionScope.user.userHead}" onerror="this.src='upload/image/noavatar_middle.gif'"/></div>
-						<div>下载积分:<span>0</span></div>
-						<table>
-							<td><button class="btn btn-default">我的资源</button></td>
-							<td><button class="btn btn-default" onclick="$('#myModal_uploadRes').modal('show')">上传资源</button></td>
-						</table>
-					</div>
+					<%@include file="userinfo_res.jsp" %>
 					
 					
 				</div>
@@ -253,5 +246,5 @@ margin-bottom:20px;
 
 </script>
 
-<%@include file="resupload.jsp" %>
+
 </html>

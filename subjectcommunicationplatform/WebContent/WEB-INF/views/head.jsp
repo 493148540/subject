@@ -6,7 +6,6 @@
 <link href="umeditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="umeditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="umeditor/umeditor.js"></script>
-<script type="text/javascript" charset="utf-8" src="umeditor/umeditor.min.js"></script>
 <script type="text/javascript" src="umeditor/lang/zh-cn/zh-cn.js"></script>
 <script>
 

@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
-import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
 import org.springframework.web.multipart.MultipartFile; 

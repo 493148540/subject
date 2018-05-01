@@ -1,10 +1,15 @@
 package com.zm.platform.util;
-import java.io.*;  
-import java.util.Date;  
-import java.awt.*;  
-import java.awt.image.*;  
-import javax.imageio.ImageIO;  
-import com.sun.image.codec.jpeg.*;  
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import javax.imageio.ImageIO;
+
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;  
 /** 
  * 图片压缩处理 
  * @author 崔素强 

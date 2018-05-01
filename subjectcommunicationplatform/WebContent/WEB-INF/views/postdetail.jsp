@@ -128,7 +128,6 @@ height:auto;
 </head>
 <body>
 <div class="container">
-	${queryparam}
 	<%@include file="loginbox.jsp"%>
 	
 	<div class="row clearfix">
@@ -143,7 +142,7 @@ height:auto;
 				<table class="table"  id="floor-${item.postFloorid}">
 					<tr>
 					<td class="c1" style="">
-					<div class="auther">${item.userName} </div>
+					<div class="auther"><c:if test='${item.userName==null}'>火星人</c:if><c:if test='${item.userName!=null}'>${item.userName}</c:if> </div>
 					<div class="ma"><img src="${item.userHead}" onerror="this.src='img/noavatar_middle.gif'"</img> </div>
 					</td>
 					<td class="c2">
