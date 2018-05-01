@@ -48,6 +48,7 @@ public class UserHandler extends BaseHandler<User,QueryUser>{
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public Info add(User User,
 			HttpServletRequest request) throws NoSuchAlgorithmException{
+		System.out.println(11);
 		User.setUserHead("upload/image/noavatar_middle.gif");
 		User.setUserRoleId(1);
 		if(User.getUserPassword().length()<32)

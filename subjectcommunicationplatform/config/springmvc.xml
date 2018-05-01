@@ -36,8 +36,9 @@
 	<mvc:resources location="/less/" mapping="/less/**" />
 	<mvc:resources location="/related/" mapping="/related/**" />
 	<mvc:resources location="/easyui/" mapping="/easyui/**" />
-	<mvc:resources location="/bootstrap/" mapping="/bootstrap-table/**" />
-	<mvc:resources location="/jquery/" mapping="/bootstrap-table/**" />
+	<mvc:resources location="/bootstrap-table/" mapping="/bootstrap-table/**" />
+	<mvc:resources location="/bootstrap/" mapping="/bootstrap/**" />
+	<mvc:resources location="/jquery/" mapping="/jquery/**" />
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	<mvc:interceptors>

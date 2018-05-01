@@ -55,10 +55,13 @@ public class PostHandler extends BaseHandler<Post,QueryPost>{
 	public Map<String, Object> findByList(@RequestParam(required = false,value="page",defaultValue="1")int page,
 							@RequestParam(required = false,value="rows",defaultValue="10")int rows,
 							QueryPost entity){
-		entity.setPostParentId((long)0);
-		entity.setRows(10);
-		entity.setOrder("desc");
-		entity.setSort("postLastreplyTime");
+		if(entity.getPostParentId()==null){
+			entity.setPostParentId((long)0);	
+		}
+		if(entity.getSort()==null|| "".equals(entity.getSort())){
+			entity.setSort("postLastreplyTime");
+			entity.setOrder("desc");
+		}
 		entity.setPage((entity.getPage()-1)*entity.getRows());
 		return postService.findAllDetailPost(entity);
 		

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zm.platform.dao.ResCommentDao">
+ <insert id="insert" useGeneratedKeys="true" keyProperty="resCommentId"> 
+	 insert into rescomment(resCommentId , resCommentParentId , resCommentContent , resCommentUserId , resCommentTime , resCommentScore , resCommentType ) 
+ 	 values(#{resCommentId} , #{resCommentParentId} , #{resCommentContent} , #{resCommentUserId} , #{resCommentTime} , #{resCommentScore} , #{resCommentType} )
+</insert>
+
+<delete id="deleteById">
+	delete from rescomment where resCommentId = #{resCommentId}
+</delete>
+ <update id="update" parameterType="Object">  
+	update rescomment  set resCommentId = #{resCommentId} , resCommentParentId = #{resCommentParentId} , resCommentContent = #{resCommentContent} , resCommentUserId = #{resCommentUserId} , resCommentTime = #{resCommentTime} , resCommentScore = #{resCommentScore} , resCommentType = #{resCommentType}  
+	where resCommentId = #{resCommentId}   
+</update> 
+
+	<update id="updateNotNull" parameterType="Object">
+		update ResComment  set   <include refid="Update_Column" />
+		where resCommentId = #{resCommentId}
+	</update>
+ <sql id="Update_Column"> 
+	 resCommentId=#{resCommentId} 
+	<if test="resCommentParentId != null and resCommentParentId != 0" >
+		 , resCommentParentId =  #{resCommentParentId}
+	</if>
+	<if test="resCommentContent != null and resCommentContent != ''" >
+		 , resCommentContent =  #{resCommentContent}
+	</if>
+	<if test="resCommentUserId != null and resCommentUserId != 0" >
+		 , resCommentUserId =  #{resCommentUserId}
+	</if>
+	<if test="resCommentTime != null and resCommentTime != ''" >
+		 , resCommentTime =  #{resCommentTime}
+	</if>
+	<if test="resCommentScore != null and resCommentScore != 0" >
+		 , resCommentScore =  #{resCommentScore}
+	</if>
+	<if test="resCommentType != null and resCommentType != ''" >
+		 , resCommentType =  #{resCommentType}
+	</if>
+</sql>
+
+<select id="findAll" resultType="com.zm.platform.domain.ResComment">
+	 select * from rescomment
+</select>
+
+<select id="findById" resultType="com.zm.platform.domain.ResComment">
+	 select * from rescomment where resCommentId=#{resCommentId}
+</select>
+
+<select id="queryByList" resultType="com.zm.platform.domain.ResComment"  parameterType="Object">
+	 select SQL_CALC_FOUND_ROWS * from rescomment
+	<include refid="Example_Where_Clause" />
+	<include refid="sortsql" />
+</select>
+<sql id="sortsql">
+	<trim >
+		<if test="sort != null  and sort!=''  and order!=null and order!=''">
+			order by ${sort}   ${order} 
+		</if>
+		<if test="page != null and rows!=null">
+			limit #{page} ,#{rows}
+		</if>
+	</trim>
+</sql>
+ <sql id="Example_Where_Clause"> 
+	 where 1=1 
+<trim  suffixOverrides="," >
+	<if test="resCommentId != null and resCommentId != 0" >
+		 and resCommentId =  #{resCommentId}
+	</if>
+	<if test="resCommentParentId != null and resCommentParentId != 0" >
+		 and resCommentParentId =  #{resCommentParentId}
+	</if>
+	<if test="resCommentContent != null and resCommentContent != ''" >
+		 and resCommentContent =  #{resCommentContent}
+	</if>
+	<if test="resCommentUserId != null and resCommentUserId != 0" >
+		 and resCommentUserId =  #{resCommentUserId}
+	</if>
+	<if test="resCommentTime != null and resCommentTime != ''" >
+		 and resCommentTime =  #{resCommentTime}
+	</if>
+	<if test="resCommentScore != null and resCommentScore != 0" >
+		 and resCommentScore =  #{resCommentScore}
+	</if>
+	<if test="resCommentType != null and resCommentType != ''" >
+		 and resCommentType =  #{resCommentType}
+	</if>
+</trim>
+</sql>
+
+<select id="findObject" resultType="com.zm.platform.domain.ResComment"  parameterType="Object">
+	 select  * from rescomment
+	<include refid="Example_Where_Clause" />
+order by resCommentId desc limit 0,1
+</select>
+</mapper>
